@@ -33,13 +33,26 @@ const getWeatherData = () => {
       let celmax = toCelcius(data.main.temp_max);
       let farmax = toFarhenheit(celmax);
    
-      console.log(`\nMinimum temperature in celcius: ${celmin.toFixed(2)} \u{00B0}C`);   // here we check for unicode given for subscript
+      console.log(`\nMinimum temperature in celcius: ${celmin.toFixed(2)} \u{00B0}C`);  // here we check for unicode given for subscript
       console.log(`Minimum temperature in farhenheit: ${farmin.toFixed(2)} \u{00B0}F`);
       console.log(`Maximum temperature in celcius: ${celmax.toFixed(2)}\u{00B0}C`);
       console.log(`Maximum temperature in farhenheit: ${farmax.toFixed(2)}\u{00B0}F`);
 
-    
+      let sunrise = toUTC(data.sys.sunrise);
+      let sunset = toUTC(data.sys.sunset);
 
+    
+      console.log("\nSunrise time in UTC : " + sunrise);
+      console.log("Sunset time in UTC : " + sunset);
+
+      console.log("Humidity: " + data.main.humidity);
+
+      let zone = data.timezone
+      let localtime = toUTC(data.dt+zone);
+      let utc = toUTC(data.dt)
+      console.log(`The local time in ${city} is ${localtime}`);
+      console.log(`The UTC time is ${utc}`)
+      
     })
     .catch((err) => {
     //   console.error(err.response);
@@ -61,3 +74,6 @@ const toFarhenheit = (temp) => {
 getWeatherData();
 
 
+function toUTC(sec) {
+  return new Date(sec * 1000).toLocaleTimeString("en-US", { timeZone: "UTC" });
+}
