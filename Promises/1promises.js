@@ -1,4 +1,4 @@
-// import  readlineSync from "readline-sync"
+import  readlineSync from "readline-sync"
 import axios from "axios"
 // import chalk from "chalk"
 for(i=1; i<=10; i++){
